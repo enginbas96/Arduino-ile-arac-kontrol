@@ -20,7 +20,7 @@ void loop()
         char komut = Serial.read();        
         sifreGirisi += komut;
         kullaniciSifreSayaci += 1;              
-        if(sifreGirisi == "1111")
+        if(sifreGirisi == "1996")
         {
           digitalWrite(kirmiziLed,0);
           digitalWrite(sariLed,1);
@@ -53,7 +53,7 @@ void loop()
         sifreGirisi += komut; 
         kullaniciSifreSayaci += 1;
                             
-        if(sifreGirisi == "1234")
+        if(sifreGirisi == "1453")
         {
           digitalWrite(sariLed,0);
           digitalWrite(maviLed,1);
