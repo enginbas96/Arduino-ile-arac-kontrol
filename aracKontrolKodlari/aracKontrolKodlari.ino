@@ -1,4 +1,5 @@
 int sariLed = 3, kirmiziLed = 4, maviLed = 2, kilitli = 0, kullaniciSifreSayaci = 0;
+int solOnMotor = 8, solArkaMotor = 9, sagOnMotor = 10, sagArkaMotor = 11;
 String sifreGirisi;
 void setup()
 {
@@ -20,7 +21,7 @@ void loop()
         char komut = Serial.read();        
         sifreGirisi += komut;
         kullaniciSifreSayaci += 1;              
-        if(sifreGirisi == "1996")
+        if(sifreGirisi == "1071")
         {
           digitalWrite(kirmiziLed,0);
           digitalWrite(sariLed,1);
@@ -100,6 +101,15 @@ void loop()
         kullaniciSifreSayaci = 0;
       }  
      }
+
+    if(kilitli == 2)
+    {
+       if(Serial.available()>0)
+      {
+        char komut = Serial.read();
+        Serial.println(komut);
+      }      
+    } 
 
 
 
