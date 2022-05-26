@@ -21,6 +21,7 @@ void loop()
         char komut = Serial.read();        
         sifreGirisi += komut;
         kullaniciSifreSayaci += 1;              
+        
         if(sifreGirisi == "1522")
         {
           digitalWrite(kirmiziLed,0);
@@ -28,11 +29,9 @@ void loop()
           sifreGirisi = "";
           kilitli = 1;
           kullaniciSifreSayaci = 0;          
-        }  
-              
+        }              
         else if(kullaniciSifreSayaci == 4 && kilitli == 0)
         {
-          Serial.println("Aktivasyon Şifreniz Yanlış Tekrar Deneyin");
           kullaniciSifreSayaci = 0;
           sifreGirisi = "";
           digitalWrite(kirmiziLed,0);
@@ -42,7 +41,8 @@ void loop()
           digitalWrite(kirmiziLed,0);
           delay(300);          
           digitalWrite(kirmiziLed,1);
-        }               
+        }
+                       
        }
      }
      
@@ -59,60 +59,56 @@ void loop()
           digitalWrite(sariLed,0);
           digitalWrite(maviLed,1);
           kilitli = 2;  
-          sifreGirisi = "";        
-        } 
-        
+          sifreGirisi = "";           
+          kullaniciSifreSayaci = 0;          
+        }
+        else if (sifreGirisi == "8888")
+        {
+          digitalWrite(kirmiziLed,1);
+          digitalWrite(sariLed,0);
+          kilitli = 0;  
+          sifreGirisi = "";           
+          kullaniciSifreSayaci = 0;    
+        }        
         else if(kullaniciSifreSayaci == 4 && kilitli == 1)
         {
-          Serial.println("Şifreniz Yanlış Tekrar Deneyin");
-          kullaniciSifreSayaci = 0;          
-          if(sifreGirisi != "8888")
+          kullaniciSifreSayaci = 0;
+          digitalWrite(sariLed,0);
+          delay(300);
+          digitalWrite(sariLed,1);
+          delay(300); 
+          digitalWrite(sariLed,0);
+          delay(300);   
+          digitalWrite(sariLed,1);
+          }         
+        }   
+       }
+      if(kilitli == 2)
+      {
+        if(Serial.available()>0)
+        {
+          char komut = Serial.read();
+          sifreGirisi += komut;
+           
+          kullaniciSifreSayaci += 1;
+          if(sifreGirisi == "8888")
           {
-            digitalWrite(sariLed,0);
-            delay(300);          
-            digitalWrite(sariLed,1);
-            delay(300); 
-            digitalWrite(sariLed,0);
-            delay(300);          
-            digitalWrite(sariLed,1);
-          } 
-          
-          sifreGirisi = ""; 
-                  
+            digitalWrite(kirmiziLed,1);
+            digitalWrite(maviLed,0);
+            kilitli = 0;  
+            sifreGirisi = "";
+            kullaniciSifreSayaci = 0;          
+          }
+          else if (kullaniciSifreSayaci == 4)
+          {       
+            sifreGirisi = "";
+            kullaniciSifreSayaci = 0;
+          }
+          else
+          {  
+            Serial.println(komut + "   " + sifreGirisi + "   " + kullaniciSifreSayaci);
+          }
         }   
        }      
-    }
-    if((kilitli == 1 || kilitli == 2) && Serial.available()>0)
-    {   
-      char komut = Serial.read();
-      sifreGirisi += komut;
-      kullaniciSifreSayaci += 1;
-      if(sifreGirisi == "8888")
-      {
-        digitalWrite(kirmiziLed,1);
-        digitalWrite(maviLed,0);
-        digitalWrite(sariLed,0);
-        sifreGirisi = "";
-        kilitli = 0;
-        kullaniciSifreSayaci = 0;
-      }
-      if(kullaniciSifreSayaci == 4)
-      {
-        kullaniciSifreSayaci = 0;
-      }  
-     }
-
-    if(kilitli == 2)
-    {
-       if(Serial.available()>0)
-      {
-        char komut = Serial.read();
-        Serial.println(komut);
-      }      
-    } 
-
-
-
-
-
 }
+   
