@@ -1,10 +1,5 @@
-int sariLed = 3;
-int kirmiziLed = 4;
-int maviLed = 2;
-int kilitli = 0;
-int kullaniciSifreSayaci = 0;
+int sariLed = 3, kirmiziLed = 4, maviLed = 2, kilitli = 0, kullaniciSifreSayaci = 0;
 String sifreGirisi;
-
 void setup()
 {
   pinMode(sariLed,OUTPUT);
@@ -19,13 +14,12 @@ void loop()
 {
   if(kilitli == 0)
     {
-       digitalWrite(kirmiziLed,1);
-       if(Serial.available()>0)
-       {        
+      digitalWrite(kirmiziLed,1);
+      if(Serial.available()>0)
+      {
         char komut = Serial.read();        
         sifreGirisi += komut;
-        kullaniciSifreSayaci += 1;
-              
+        kullaniciSifreSayaci += 1;              
         if(sifreGirisi == "1111")
         {
           digitalWrite(kirmiziLed,0);
@@ -33,8 +27,8 @@ void loop()
           sifreGirisi = "";
           kilitli = 1;
           kullaniciSifreSayaci = 0;          
-        }
-        
+        }  
+              
         else if(kullaniciSifreSayaci == 4 && kilitli == 0)
         {
           Serial.println("Aktivasyon Şifreniz Yanlış Tekrar Deneyin");
@@ -48,16 +42,17 @@ void loop()
           delay(300);          
           digitalWrite(kirmiziLed,1);
         }               
-       }      
-    }
-    if(kilitli == 1)
-    {
+       }
+     }
+     
+     if(kilitli == 1)
+     {
       if(Serial.available()>0)
       {
         char komut = Serial.read(); 
         sifreGirisi += komut; 
         kullaniciSifreSayaci += 1;
-                    
+                            
         if(sifreGirisi == "1234")
         {
           digitalWrite(sariLed,0);
@@ -65,6 +60,7 @@ void loop()
           kilitli = 2;  
           sifreGirisi = "";        
         } 
+        
         else if(kullaniciSifreSayaci == 4 && kilitli == 1)
         {
           Serial.println("Şifreniz Yanlış Tekrar Deneyin");
@@ -79,30 +75,34 @@ void loop()
             delay(300);          
             digitalWrite(sariLed,1);
           } 
-          sifreGirisi = "";         
+          
+          sifreGirisi = ""; 
+                  
         }   
        }      
     }
-  if((kilitli == 1 || kilitli == 2) && Serial.available()>0)
-  {
-   
-              
-        char komut = Serial.read();        
-        sifreGirisi += komut;
-        kullaniciSifreSayaci += 1;
-              
-        if(sifreGirisi == "8888")
-        {
-          digitalWrite(kirmiziLed,1);
-          digitalWrite(maviLed,0);
-          digitalWrite(sariLed,0);
-          sifreGirisi = "";
-          kilitli = 0;
-          kullaniciSifreSayaci = 0;          
-        }
-        if(kullaniciSifreSayaci == 4)
-        {
-          kullaniciSifreSayaci = 0;
-        }
-    
-}}
+    if((kilitli == 1 || kilitli == 2) && Serial.available()>0)
+    {   
+      char komut = Serial.read();
+      sifreGirisi += komut;
+      kullaniciSifreSayaci += 1;
+      if(sifreGirisi == "8888")
+      {
+        digitalWrite(kirmiziLed,1);
+        digitalWrite(maviLed,0);
+        digitalWrite(sariLed,0);
+        sifreGirisi = "";
+        kilitli = 0;
+        kullaniciSifreSayaci = 0;
+      }
+      if(kullaniciSifreSayaci == 4)
+      {
+        kullaniciSifreSayaci = 0;
+      }  
+     }
+
+
+
+
+
+}
